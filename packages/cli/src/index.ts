@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import { sendTelegramMessage } from "sendkit-core";
+import { sendTelegramMessage } from "@joshlee01127/sendkit-core";
 import { homedir } from "node:os";
 import { dirname, join } from "node:path";
 import { mkdirSync, existsSync, readFileSync, writeFileSync } from "node:fs";

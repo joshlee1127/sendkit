@@ -9,11 +9,8 @@
   "dependencies": {
     "@clerk/backend": "^3.8.3",
     "@clerk/mcp-tools": "^0.5.0",
+    "@joshlee01127/sendkit-core": "workspace:*",
     "@modelcontextprotocol/sdk": "^1.29.0",
-    "hono": "^4.12.27",
-    "sendkit-core": "workspace:*"
-  },
-  "devDependencies": {
-    "@types/node": "^26.0.0"
+    "hono": "^4.12.27"
   }
 }
