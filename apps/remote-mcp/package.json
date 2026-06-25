@@ -6,14 +6,14 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "devDependencies": {
-    "@types/node": "^26.0.0"
-  },
   "dependencies": {
     "@clerk/backend": "^3.8.3",
     "@clerk/mcp-tools": "^0.5.0",
     "@modelcontextprotocol/sdk": "^1.29.0",
     "hono": "^4.12.27",
     "sendkit-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0"
   }
 }

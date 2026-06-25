@@ -1,9 +1,9 @@
-import { Hono, type Context } from "hono";
+import { createClerkClient } from "@clerk/backend";
+import { generateClerkProtectedResourceMetadata } from "@clerk/mcp-tools/server";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
+import { Hono, type Context } from "hono";
 import { sendTelegramMessage, telegramMessageInputSchema } from "sendkit-core";
-import { createClerkClient, Token } from "@clerk/backend";
-import { generateClerkProtectedResourceMetadata } from "@clerk/mcp-tools/server";
 
 const clerkPublishableKey = process.env.CLERK_PUBLISHABLE_KEY;
 const clerkSecretKey = process.env.CLERK_SECRET_KEY;
@@ -48,7 +48,7 @@ function createServer(botToken: string) {
         ],
         structuredContent: result,
       };
-    }
+    },
   );
 
   return server;
@@ -57,16 +57,13 @@ function createServer(botToken: string) {
 const app = new Hono();
 
 function protectedResourceMetadataUrl(c: Context, botToken: string) {
-  return new URL(
-    `/.well-known/oauth-protected-resource/${botToken}/mcp`,
-    c.req.url
-  ).toString();
+  return new URL(`/.well-known/oauth-protected-resource/${botToken}/mcp`, c.req.url).toString();
 }
 
 function unauthorizedMcpResponse(c: Context, botToken: string) {
   c.header(
     "WWW-Authenticate",
-    `Bearer resource_metadata="${protectedResourceMetadataUrl(c, botToken)}"`
+    `Bearer resource_metadata="${protectedResourceMetadataUrl(c, botToken)}"`,
   );
   return c.json({ error: "Unauthorized" }, 401);
 }
@@ -75,11 +72,8 @@ app.get("/.well-known/oauth-protected-resource/:botToken/mcp", (c) => {
   return c.json(
     generateClerkProtectedResourceMetadata({
       publishableKey: clerkPublishableKey,
-      resourceUrl: new URL(
-        `/${c.req.param("botToken")}/mcp`,
-        c.req.url
-      ).toString(),
-    })
+      resourceUrl: new URL(`/${c.req.param("botToken")}/mcp`, c.req.url).toString(),
+    }),
   );
 });
 app.post("/:botToken/mcp", async (c) => {
