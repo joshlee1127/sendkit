@@ -6,3 +6,4 @@ dist/
 *.log
 .mcp.json
 opencode.json
+.npmrc
