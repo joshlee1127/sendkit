@@ -1,13 +1,29 @@
 {
   "name": "@joshlee01127/sendkit-mcp",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.6",
+  "bin": {
+    "sendkit-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
   "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./src/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
-    "build": "tsdown"
+    "build": "tsdown",
+    "pack:dry": "bun run build && bun pm --dry-run",
+    "prepublishOnly": "bun run build"
   },
   "dependencies": {
     "@joshlee01127/sendkit-core": "workspace:*",
