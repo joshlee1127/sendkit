@@ -100,7 +100,7 @@ bun run release:pack:cli
 bun run release:pack:local-mcp
 ```
 
-每個指令都會建置該套件並執行 dry-run 打包。可發布的套件使用 [tsdown](https://tsdown.dev) 建置成 ESM 與 `.d.ts`，目標為 Node 20。
+每個指令都會建置該套件並執行 dry-run 打包。可發布的套件使用 [tsdown](https://tsdown.dev) 建置成 ESM 與 `.d.ts`，目標為 Node 20。實際上傳到 npm 的步驟請見 [PUBLISHING.md](./PUBLISHING.md)。
 
 ### 新增「發送 X」功能
 
